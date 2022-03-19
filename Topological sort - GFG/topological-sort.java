@@ -60,42 +60,53 @@ class Main {
 class Solution
 {
     
-    static void dfs(int src, ArrayList<ArrayList<Integer>> graph, boolean[] vis, ArrayList<Integer> al)
+    
+    //Function to return list containing vertices in Topological order. 
+    static int[] topoSort(int V, ArrayList<ArrayList<Integer>> graph) 
     {
-        vis[src] = true;
-        for(int nbr: graph.get(src))
+        int[] vis = new int[V];
+        
+        int[] inDegree = new int[V];
+        for(int i = 0; i< V; i++)
         {
-            if(!vis[nbr])
+            for(int nbr:graph.get(i))
             {
-                dfs(nbr,graph, vis, al);
+                inDegree[nbr]++;
             }
         }
-        al.add(src);
-    }
-    //Function to return list containing vertices in Topological order. 
-    static int[] topoSort(int V, ArrayList<ArrayList<Integer>> adj) 
-    {
-        boolean[] vis = new boolean[V];
-        ArrayList<Integer> al  = new ArrayList<>();
+        
+        LinkedList<Integer> que = new LinkedList<>();
+        ArrayList<Integer> topo  = new ArrayList<>();
         
         for(int i = 0; i< V; i++)
         {
-            if(!vis[i])
+            if(inDegree[i] == 0)
             {
-                dfs(i, adj, vis, al);
+                que.addLast(i);
+                topo.add(i);
             }
-            
         }
         
-        int[] topo  = new int[V];
-        int j = 0;
-         
-         for(int i=al.size()-1;i>=0;i--)
+        while(que.size() > 0)
+        {
+            int u = que.removeFirst();
+            for(int v: graph.get(u))
+            {
+                inDegree[v]--;
+                if(inDegree[v] == 0)
+            {
+                que.addLast(v);
+                topo.add(v);
+            }
+            }
+        }
+      
+      int[] ans  = new int[V];
+         for(int i = 0; i< V; i++)
          {
-             topo[j] = al.get(i);
-             j++;
+             ans[i]= topo.get(i);
          }
          
-         return topo;
+         return ans;
     } 
 }
