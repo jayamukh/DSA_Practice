@@ -100,6 +100,12 @@ class Solution
             }
             }
         }
+        
+        if(topo.size() != V)
+        {
+            System.out.println("NO SOLUTION");
+            return new int[]{};
+        }
       
       int[] ans  = new int[V];
          for(int i = 0; i< V; i++)
