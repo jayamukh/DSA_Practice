@@ -18,12 +18,13 @@ class Solution {
                 if(mat[i][j] == 0)
                 {
                     que.addLast(i*m+j);
+                    ans[i][j]=0;
                 }
             }
         }
-                
+         int level = 0;       
         int[][] dirs = {{0,1},{0,-1},{1,0},{-1,0}};
-        int level = 0;
+        
         while(que.size() > 0)
         {
             int size = que.size();
@@ -33,9 +34,9 @@ class Solution {
                 int i = idx/m;
                 int j = idx%m;
                 
-                if(ans[i][j]!=-1) continue;
+               // if(ans[i][j]!=-1) continue;
 
-                ans[i][j]=level;
+               // ans[i][j]=level;
 
                 for(int[] dir:dirs){
                     int x=i+dir[0];
@@ -43,11 +44,11 @@ class Solution {
 
                     if(x>=0 && y>=0 && x<n && y<m && ans[x][y]==-1){
                         que.addLast(x*m+y);
-                        //ans[x][y]=level+1;
+                        ans[x][y]=level+1;
                     }  
                 }
             }
-            level++;
+            level ++;
         }
         
         return ans;
