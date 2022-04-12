@@ -33,6 +33,33 @@ class Solution {
         return memo[idx]=ans+1;
     }
     
+    int tab(int n, int[] nums)
+    {
+        int[] dp  = new int[n];
+
+    for(int idx=n; idx>=0;idx--)
+    {
+        if(idx == n-1)
+        {
+            dp[idx] =0;
+            continue;
+        }
+
+    
+   
+    int jumps_allowed = nums[idx];
+    int ans = (int)(1e8);
+
+    for(int j = 1; j<=jumps_allowed && j+idx < n; j++)
+    {
+        ans = Math.min(ans, dp[idx+j]);
+    }
+
+     dp[idx] = ans+1;
+    }
+    return dp[0];
+    }
+    
     public int jump(int[] nums) {
         int n=nums.length;
         
