@@ -1,6 +1,6 @@
 class Solution {
     
-  public int rec(String text1, String text2, int n, int m){
+public int rec(String text1, String text2, int n, int m){
         if(n==0) return 0;
         if(m==0) return 0;
         
@@ -23,6 +23,24 @@ class Solution {
         } else {
             return memo[n][m]=Math.max(rec_memo(text1,text2,n-1,m,memo),rec_memo(text1,text2,n,m-1,memo));
         }
+    }
+    
+    public int tab2(String text1, String text2, int n, int m){
+        int[][] dp=new int[n+1][m+1];
+        
+        for(int i=0; i<=n; i++){
+            for(int j=0; j<=m; j++){
+                if(i==0 || j==0){
+                    dp[i][j]=0;
+                } else if(text1.charAt(i-1)==text2.charAt(j-1)){
+                    dp[i][j]=dp[i-1][j-1]+1;
+                } else {
+                    dp[i][j]=Math.max(dp[i][j-1],dp[i-1][j]);
+                }
+            }
+        }
+        
+        return dp[n][m];
     }
     
     public int tab(String text1, String text2, int N, int M){
@@ -50,10 +68,10 @@ class Solution {
         int n=text1.length();
         int m=text2.length();
         
-        int[][] memo=new int[n+1][m+1];
+        // int[][] memo=new int[n+1][m+1];
                 // return rec(text1,text2,n,m);
         // return rec_memo(text1,text2,n,m,memo);
-        return tab(text1,text2,n,m);
+        return tab2(text1,text2,n,m);
         
     }
 }
