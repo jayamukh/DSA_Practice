@@ -2,9 +2,9 @@ class Solution {
     public boolean wordBreak(String s, List<String> wordDict) {
         HashSet<String> set  = new HashSet<>(wordDict);
         
-        int[] memo = new int[s.length() + 1];
-        Arrays.fill(memo, -1);
-        int ret  = wordBreakMemo(s, set, 0, memo);
+        int[] dp = new int[s.length() + 1];
+        Arrays.fill(dp, -1);
+        int ret  = wordBreakTab(s, set);
         if(ret == 0)
             return false;
         else 
@@ -45,5 +45,25 @@ class Solution {
         }
         
         return memo[si] = 0;
+    }
+    
+    public int wordBreakTab(String s, HashSet<String> set) {
+       int[] dp = new int[s.length() +1];
+        dp[0] = 1;
+        for(int i = 1; i <= s.length(); i++)
+        {
+        
+               
+        for(int ei = 0; ei < i ; ei++)
+        {
+            if(set.contains(s.substring(ei,i)) && dp[ei] == 1)
+            {
+                dp[i] = 1;
+            break;
+            }
+        }
+        }
+        return dp[s.length()];
+    
     }
 }
