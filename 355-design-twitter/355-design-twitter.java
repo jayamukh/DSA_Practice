@@ -49,7 +49,7 @@ Map<Integer, List<Tweet>> tweets;
                      else
                      {
                          if(t.timePosted <= feedHeap.peek().timePosted) 
-                             break;
+                             continue;
                          else
                          {
                              feedHeap.add(t);
