@@ -1,6 +1,6 @@
 class Solution {
     public List<String> topKFrequent(String[] words, int k) {
-        List<String> res = new ArrayList<String>();
+        List<String> res = new LinkedList<String>();
         HashMap<String, Integer> map = new HashMap<>();
         
         for(String word: words)
