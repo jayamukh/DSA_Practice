@@ -18,7 +18,7 @@ class Solution {
         
         preHead.next.prev = null;
         
-        return preHead.next;
+        return head;
         
     }
     
