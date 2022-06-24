@@ -9,7 +9,7 @@ class Node {
 */
 
 class Solution {
-    public Node flatten(Node head) {
+   /* public Node flatten(Node head) {
         if(head == null) return head;
         
         Node preHead = new Node(0, null, head, null);
@@ -34,4 +34,37 @@ class Solution {
         return dfsFlatten(tail, tempNext);
         
     }
+    */
+    
+   public Node flatten(Node head)
+   {
+       if(head == null) return head;
+       Node preHead = new Node(0, null, head, null);
+       
+       Node curr, prev  = preHead;
+       Stack<Node> st  = new Stack<>();
+       
+       st.push(head);
+       
+       while(st.size() > 0)
+       {
+           curr = st.pop();
+           curr.prev = prev;
+           prev.next = curr;
+           
+           if(curr.next != null) st.push(curr.next);
+           if(curr.child != null) 
+           {
+               st.push(curr.child);
+               curr.child = null;
+               
+           }
+           prev = curr;
+       }
+       
+       preHead.next.prev = null;
+       
+       return head;
+   }
+    
 }
