@@ -21,7 +21,7 @@ class Solution {
         if(i<0 || j<0 || i >= 4||j >= 3 || (i>=3 && j!=1))
             return 0;
         if(n==1)
-            return 1;
+            return memo[n][i][j] = 1;
         
         if(memo[n][i][j] > 0)   return memo[n][i][j] ;
         
