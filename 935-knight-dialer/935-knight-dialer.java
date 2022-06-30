@@ -1,5 +1,5 @@
 class Solution {
-    public final int max = (int) Math.pow(10, 9) + 7;
+   /* public final int max = (int) Math.pow(10, 9) + 7;
     public int knightDialer(int n) {
         
         long s = 0;
@@ -34,5 +34,59 @@ class Solution {
             paths(memo,i+1,j-2,n-1) % max +
             paths(memo,i-1,j-2,n-1) % max ;
         return memo[n][i][j];
+    } */
+    
+    public int knightDialer(int N) {
+        if(N==1) return 10;
+        long mod = 1000000007;
+        long[][] matrix = {
+            {0, 0, 0, 0, 1, 0, 1, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 1, 0, 1, 0},
+            {0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+            {0, 0, 0, 0, 1, 0, 0, 0, 1, 0},
+            {1, 0, 0, 1, 0, 0, 0, 0, 0, 1},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {1, 1, 0, 0, 0, 0, 0, 1, 0, 0},                     
+            {0, 0, 1, 0, 0, 0, 1, 0, 0, 0},
+            {0, 1, 0, 1, 0, 0, 0, 0, 0, 0},
+            {0, 0, 1, 0, 1, 0, 0, 0, 0, 0},            
+        };        
+        long[][] resultMatrix = new long[10][10];
+        boolean resultNotEmpty = false;
+        long res = 0;
+        N=N-1;
+        while(N>0){
+            if(N%2==1){
+                if(resultNotEmpty){
+                    resultMatrix = matrixMultiply(resultMatrix, matrix);       
+                } else {
+                    resultNotEmpty = true;
+                    resultMatrix = matrix;                                   
+                }                 
+            }
+            matrix = matrixMultiply(matrix, matrix);
+            N/=2;
+        }
+        long sum = 0;
+        for(int i=0; i<10; i++){
+            for(int j=0; j<10; j++){
+                sum = (sum+resultMatrix[i][j])%mod;
+            }
+        }
+        return (int)sum;
+        
+    }
+    private long[][] matrixMultiply(long[][] matrix1, long[][]matrix2){
+        long mod = 1000000007;
+        long[][] resultMatrix = new long[10][10];
+        for(int i=0; i<10; i++){
+            for(int j=0; j<10; j++){
+                for(int k=0; k<10; k++){
+                    resultMatrix[i][j] =  (resultMatrix[i][j]+matrix1[i][k]*matrix2[k][j])%mod;
+                }
+                
+            }
+        }  
+        return resultMatrix;
     }
 }
